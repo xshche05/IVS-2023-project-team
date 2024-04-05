@@ -1,0 +1,6 @@
+Kompletní archiv se nachází na IVS serveru (sloužka "/ivs-proj2/odevzdane/xshche05"). Odevzdán 26.04.2023 04:00.
+
+Složky:
+doc\ - Automatické generovaná dokumentace
+install\ - Instalátory kalkulačky (x86, x64) a spustitelný soubor profilingu
+repo\ - Kopie Git repositáře včetně historie.

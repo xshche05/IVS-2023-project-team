@@ -1,0 +1,4 @@
+xshche05 133 (nastavení repozitáře, profiling, instalatory, makefile, shrnuti, rosšíření UI, bugfixy)
+xklepa05 133 (zaklady GUI, rozšíření GUI, bugfixy, úživatelská dokumentace, testy, mockup)
+xroman18 133 (matematická knihovná, rozšíření GUI, bugfixy, technická dokumentace, podpora jazyka C#, backend)
+xborys03 0 (nic)
