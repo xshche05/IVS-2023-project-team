@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<controls:BackdropWindow
+    x:Class="IvsCalc.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:IvsCalc"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:IvsCalc.Classes.Controls"
+    mc:Ignorable="d">
+
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid.Resources>
+            <x:Double x:Key="ButtonFontSize">24</x:Double>
+            <x:Double x:Key="SecondaryButtonFontSize">20</x:Double>
+
+            <Style x:Key="AdditionalButton" BasedOn="{StaticResource DefaultButtonStyle}" TargetType="Button">
+                <Setter Property="VerticalAlignment" Value="Stretch" />
+                <Setter Property="Width" Value="42"/>
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="FontSize" Value="{StaticResource SecondaryButtonFontSize}"/>
+                <Setter Property="FontWeight" Value="Medium" />
+            </Style>
+
+            <Style x:Key="KeypadButton" TargetType="Button">
+                <Setter Property="VerticalAlignment" Value="Stretch"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="CornerRadius" Value="5" />
+                <Setter Property="FontSize" Value="{StaticResource ButtonFontSize}" />
+                <Setter Property="ClickMode" Value="Press" />
+                <Setter Property="AllowFocusOnInteraction" Value="False" />
+            </Style>
+
+            <Style x:Key="KBNumber" BasedOn="{StaticResource KeypadButton}" TargetType="Button">
+                <Setter Property="Background" Value="#20FFFFFF" />
+            </Style>
+
+            <Style x:Key="KBOperator" BasedOn="{StaticResource KeypadButton}" TargetType="Button">
+                <Setter Property="Background" Value="#20000000" />
+            </Style>
+
+            <Style x:Key="KBAccent" BasedOn="{StaticResource KeypadButton}" TargetType="Button">
+            </Style>
+
+            <Style x:Key="KBDanger" BasedOn="{StaticResource KeypadButton}" TargetType="Button">
+                <Setter Property="Background" Value="#BDFF3232" />
+            </Style>
+
+            <DataTemplate x:Key="PowerIconTemplate">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="x" />
+                    <TextBlock VerticalAlignment="Top" FontSize="14" Text="y"/>
+                </StackPanel>
+            </DataTemplate>
+
+            <DataTemplate x:Key="SquareIconTemplate">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="x" />
+                    <TextBlock VerticalAlignment="Top" FontSize="14" Text="2"/>
+                </StackPanel>
+            </DataTemplate>
+
+            <DataTemplate x:Key="NqrtIconTemplate">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock VerticalAlignment="Top" FontSize="16" Text="n"/>
+                    <FontIcon Glyph="&#xE94B;" Margin="0,8,0,0" FontSize="{StaticResource ButtonFontSize}"/>
+                </StackPanel>
+            </DataTemplate>
+
+            <DataTemplate x:Key="SqrtIconTemplate">
+                <FontIcon Glyph="&#xE94B;" FontSize="{StaticResource ButtonFontSize}"/>
+            </DataTemplate>
+
+            <DataTemplate x:Key="DivideIconTemplate">
+                <FontIcon Glyph="&#xE94A;" FontSize="{StaticResource ButtonFontSize}"/>
+            </DataTemplate>
+
+            <DataTemplate x:Key="MultiplyIconTemplate">
+                <FontIcon Glyph="&#xE947;" FontSize="{StaticResource ButtonFontSize}"/>
+            </DataTemplate>
+
+            <DataTemplate x:Key="AddIconTemplate">
+                <FontIcon Glyph="&#xE948;" FontSize="{StaticResource ButtonFontSize}"/>
+            </DataTemplate>
+
+            <DataTemplate x:Key="SubtractIconTemplate">
+                <FontIcon Glyph="&#xE949;" FontSize="{StaticResource ButtonFontSize}"/>
+            </DataTemplate>
+
+            <DataTemplate x:Key="NegateIconTemplate">
+                <FontIcon Glyph="&#xE94D;" FontSize="{StaticResource ButtonFontSize}"/>
+            </DataTemplate>
+
+            <DataTemplate x:Key="EqualToIconTemplate">
+                <FontIcon Glyph="&#xE94E;" FontSize="{StaticResource ButtonFontSize}" />
+            </DataTemplate>
+
+            <DataTemplate x:Key="BackspaceIconTemplate">
+                <FontIcon Glyph="&#xE94F;" FontSize="{StaticResource ButtonFontSize}" />
+            </DataTemplate>
+
+            <DataTemplate x:Key="PiIconTemplate">
+                <Viewbox Height="18">
+                    <PathIcon Data="M1.6,0.9c-0.3,0-0.5,0-0.7,0.1S0.6,1.3,0.4,1.6L0,1.2c0.3-0.5,0.6-0.8,0.9-0.9s0.6-0.2,1-0.2h4.9v0.8H5.4v3.5c0,0.5,0.1,0.8,0.4,0.8c0.2,0,0.4-0.1,0.6-0.3l0.2,0.4C6.3,5.6,5.8,5.8,5.4,5.8c-0.3,0-0.6-0.1-0.8-0.3S4.4,4.8,4.4,4.3V0.9H2.6v4.8H1.5V5.4c0.2-0.9,0.4-2.2,0.4-3.7V0.9H1.6z" />
+                </Viewbox>
+            </DataTemplate>
+
+            <DataTemplate x:Key="ExpIconTemplate">
+                <Viewbox Height="18">
+                    <PathIcon Data="M 4.62 4.7 c -0.2 0.3 -0.5 0.5 -0.7 0.6 s -0.4 0.3 -0.7 0.3 s -0.5 0.1 -0.8 0.1 c -0.8 0 -1.4 -0.2 -1.8 -0.7 s -0.6 -1.2 -0.6 -2.1 c 0 -0.6 0.1 -1.1 0.3 -1.5 s 0.5 -0.8 0.9 -1 S 2.02 0 2.52 0 c 0.4 0 0.7 0.1 1 0.2 s 0.5 0.3 0.7 0.5 s 0.3 0.5 0.4 0.8 s 0.1 0.8 0.2 1.3 h -3.7 v 0.1 c 0 0.5 0.1 0.8 0.2 1.2 s 0.3 0.6 0.5 0.7 s 0.5 0.3 0.9 0.3 c 0.3 0 0.6 -0.1 0.9 -0.2 s 0.5 -0.3 0.8 -0.6 L 4.62 4.7 z M 3.72 2.3 c 0 -0.4 -0.1 -0.8 -0.2 -1 s -0.2 -0.5 -0.4 -0.6 s -0.4 -0.2 -0.6 -0.2 c -0.4 0 -0.7 0.2 -1 0.5 s -0.4 0.8 -0.4 1.4 H 3.72 z" />
+                </Viewbox>
+            </DataTemplate>
+
+            <DataTemplate x:Key="HelpIconTemplate">
+                <FontIcon Glyph="&#xE897;" />
+            </DataTemplate>
+
+            <DataTemplate x:Key="SettingsIconTemplate">
+                <FontIcon Glyph="&#xE713;" />
+            </DataTemplate>
+        </Grid.Resources>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32" />
+            <RowDefinition Height="48" />
+            <RowDefinition Height="0.25*" />
+            <RowDefinition Height="42" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <!-- TitleBar -->
+        <Grid x:Name="AppTitleBar" Grid.Row="0" Height="30" Canvas.ZIndex="1000">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="32" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <!--<FontIcon Grid.Column="0" Glyph="&#xE8EF;" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="14" FontWeight="Normal" />-->
+            <Image Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Source="Assets/IvsCalcIcon.png" Width="16"/>
+            <TextBlock Grid.Column="1" Text="Calculator" TextWrapping="NoWrap" VerticalAlignment="Center" FontSize="12" />
+        </Grid>
+
+        <!-- Expression -->
+        <Grid Grid.Row="1" Margin="8,8,8,0">
+            <TextBlock x:Name="Expression" Text="" FontSize="16" Foreground="#FFAAAAAA" VerticalAlignment="Center" TextAlignment="End" />
+        </Grid>
+
+        <!-- Current number -->
+        <Viewbox Grid.Row="2" Margin="8,8,8,0" Stretch="Uniform" StretchDirection="DownOnly" HorizontalAlignment="Right">
+            <TextBlock x:Name="Result" Text="0" TextWrapping="NoWrap"
+                FontSize="72" FontWeight="Semibold" IsTextSelectionEnabled="True"
+                VerticalAlignment="Center" TextAlignment="Right" />
+        </Viewbox>
+
+        <!-- Additional Keys -->
+        <Grid Grid.Row="3" Margin="4 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1" ContentTemplate="{StaticResource SettingsIconTemplate}" Style="{StaticResource AdditionalButton}" ToolTipService.ToolTip="Settings" />
+            <Button Grid.Column="2" ContentTemplate="{StaticResource HelpIconTemplate}" Style="{StaticResource AdditionalButton}" ToolTipService.ToolTip="Help">
+                <Button.Flyout>
+                    <Flyout Placement="LeftEdgeAlignedBottom">
+                        <StackPanel Orientation="Vertical">
+                            <RichTextBlock>
+                                <Paragraph FontSize="24" FontWeight="Medium" Margin="0,0,0,8">How to use</Paragraph>
+                                <Paragraph>1. Type in a number using your keyboard or keypad bellow</Paragraph>
+                                <Paragraph>2. Select an operator</Paragraph>
+                                <Paragraph>3. Type in a second number</Paragraph>
+                                <Paragraph>4. Press the '=' button to show the result</Paragraph>
+                            </RichTextBlock>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock VerticalAlignment="Center" Text="Still have questions?" />
+                                <HyperlinkButton Content="Open user manual"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
+
+        </Grid>
+
+        <!-- Keypad -->
+        <Grid Grid.Row="4" Margin="4" RowSpacing="4" ColumnSpacing="4">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Row="6" Grid.Column="0" PreviewKeyDown="GlobalPreviewKeyDown" Style="{StaticResource KBNumber}" controls:Keyboard.Shortcut="N" Content="+/-" Click="Negate_Click"/>
+            <Button Grid.Row="6" Grid.Column="1" PreviewKeyDown="GlobalPreviewKeyDown" Style="{StaticResource KBNumber}" controls:Keyboard.Shortcut="Number0,NumberPad0" Content="0" Click="Number_Click"/>
+            <Button Grid.Row="6" Grid.Column="2" PreviewKeyDown="GlobalPreviewKeyDown" Style="{StaticResource KBNumber}" controls:Keyboard.Shortcut="Dot" Content="." Click="Number_Click"/>
+            <Button Grid.Row="6" Grid.Column="3" PreviewKeyDown="GlobalPreviewKeyDown" Style="{StaticResource KBAccent}" controls:Keyboard.Shortcut="Enter,187" ContentTemplate="{StaticResource EqualToIconTemplate}" Content="=" Click="Eq_Click"/>
+
+            <Button Grid.Row="5" Grid.Column="0" PreviewKeyDown="GlobalPreviewKeyDown" Style="{StaticResource KBNumber}" controls:Keyboard.Shortcut="Number1,NumberPad1" Content="1" Click="Number_Click"/>
+            <Button Grid.Row="5" Grid.Column="1" PreviewKeyDown="GlobalPreviewKeyDown" Style="{StaticResource KBNumber}" controls:Keyboard.Shortcut="Number2,NumberPad2" Content="2" Click="Number_Click"/>
+            <Button Grid.Row="5" Grid.Column="2" PreviewKeyDown="GlobalPreviewKeyDown" Style="{StaticResource KBNumber}" controls:Keyboard.Shortcut="Number3,NumberPad3" Content="3" Click="Number_Click"/>
+            <Button Grid.Row="5" Grid.Column="3" PreviewKeyDown="GlobalPreviewKeyDown" Style="{StaticResource KBOperator}" controls:Keyboard.Shortcut="Add,Shift+187" ContentTemplate="{StaticResource AddIconTemplate}" Content="+" Click="Operator_Click"/>
+
+            <Button Grid.Row="4" Grid.Column="0" PreviewKeyDown="GlobalPreviewKeyDown" Style="{StaticResource KBNumber}" controls:Keyboard.Shortcut="Number4,NumberPad4" Content="4" Click="Number_Click"/>
+            <Button Grid.Row="4" Grid.Column="1" PreviewKeyDown="GlobalPreviewKeyDown" Style="{StaticResource KBNumber}" controls:Keyboard.Shortcut="Number5,NumberPad5" Content="5" Click="Number_Click"/>
+            <Button Grid.Row="4" Grid.Column="2" PreviewKeyDown="GlobalPreviewKeyDown" Style="{StaticResource KBNumber}" controls:Keyboard.Shortcut="Number6,NumberPad6" Content="6" Click="Number_Click"/>
+            <Button Grid.Row="4" Grid.Column="3" PreviewKeyDown="GlobalPreviewKeyDown" Style="{StaticResource KBOperator}" controls:Keyboard.Shortcut="Subtract,189" ContentTemplate="{StaticResource SubtractIconTemplate}" Content="-" Click="Operator_Click"/>
+
+            <Button Grid.Row="3" Grid.Column="0" PreviewKeyDown="GlobalPreviewKeyDown" Style="{StaticResource KBNumber}" controls:Keyboard.Shortcut="Number7,NumberPad7" Content="7" Click="Number_Click"/>
+            <Button Grid.Row="3" Grid.Column="1" PreviewKeyDown="GlobalPreviewKeyDown" Style="{StaticResource KBNumber}" controls:Keyboard.Shortcut="Number8,NumberPad8" Content="8" Click="Number_Click"/>
+            <Button Grid.Row="3" Grid.Column="2" PreviewKeyDown="GlobalPreviewKeyDown" Style="{StaticResource KBNumber}" controls:Keyboard.Shortcut="Number9,NumberPad9" Content="9" Click="Number_Click"/>
+            <Button Grid.Row="3" Grid.Column="3" PreviewKeyDown="GlobalPreviewKeyDown" Style="{StaticResource KBOperator}" controls:Keyboard.Shortcut="Multiply,Shift+Number8" ContentTemplate="{StaticResource MultiplyIconTemplate}" Content="*" Click="Operator_Click"/>
+
+            <Button Grid.Row="2" Grid.Column="0" PreviewKeyDown="GlobalPreviewKeyDown" Style="{StaticResource KBOperator}" controls:Keyboard.Shortcut="S" ContentTemplate="{StaticResource SqrtIconTemplate}" Content="sqrt" Click="Operator_Click"/>
+            <Button Grid.Row="2" Grid.Column="1" PreviewKeyDown="GlobalPreviewKeyDown" Style="{StaticResource KBOperator}" controls:Keyboard.Shortcut="Menu+S" ContentTemplate="{StaticResource NqrtIconTemplate}" Content="nqrt" Click="Operator_Click"/>
+            <Button Grid.Row="2" Grid.Column="2" PreviewKeyDown="GlobalPreviewKeyDown" Style="{StaticResource KBOperator}" controls:Keyboard.Shortcut="Shift+Number1" Content="!" Click="Operator_Click" />
+            <Button Grid.Row="2" Grid.Column="3" PreviewKeyDown="GlobalPreviewKeyDown" Style="{StaticResource KBOperator}" controls:Keyboard.Shortcut="Divide,191" ContentTemplate="{StaticResource DivideIconTemplate}" Content="/" Click="Operator_Click"/>
+
+            <Button Grid.Row="1" Grid.Column="0" PreviewKeyDown="GlobalPreviewKeyDown" Style="{StaticResource KBOperator}" controls:Keyboard.Shortcut="Menu+Shift+Number6" ContentTemplate="{StaticResource SquareIconTemplate}"  Content="^ 2" Click="Operator_Click" />                                                
+            <Button Grid.Row="1" Grid.Column="1" PreviewKeyDown="GlobalPreviewKeyDown" Style="{StaticResource KBOperator}" controls:Keyboard.Shortcut="Shift+Number6" ContentTemplate="{StaticResource PowerIconTemplate}" Content="^" Click="Operator_Click"/>
+            <Button Grid.Row="1" Grid.Column="2" PreviewKeyDown="GlobalPreviewKeyDown" Style="{StaticResource KBOperator}" controls:Keyboard.Shortcut="P" ContentTemplate="{StaticResource PiIconTemplate}" Content="pi" Click="Const_Click"/>
+            <Button Grid.Row="1" Grid.Column="3" PreviewKeyDown="GlobalPreviewKeyDown" Style="{StaticResource KBOperator}" controls:Keyboard.Shortcut="E" ContentTemplate="{StaticResource ExpIconTemplate}" Content="e" Click="Const_Click"/>
+            
+            <Button Grid.Row="0" Grid.Column="0" PreviewKeyDown="GlobalPreviewKeyDown" Style="{StaticResource KBOperator}" controls:Keyboard.Shortcut="Shift+Number9" Content="(" Click="Bracket_Click"/>
+            <Button Grid.Row="0" Grid.Column="1" PreviewKeyDown="GlobalPreviewKeyDown" Style="{StaticResource KBOperator}" controls:Keyboard.Shortcut="Shift+Number0" Content=")" Click="Bracket_Click"/>
+            <Button Grid.Row="0" Grid.Column="2" PreviewKeyDown="GlobalPreviewKeyDown" Style="{StaticResource KBOperator}" controls:Keyboard.Shortcut="C" x:Name="ButtonC" Content="C" Click="Clear_Click" />
+            <Button Grid.Row="0" Grid.Column="3" PreviewKeyDown="GlobalPreviewKeyDown" Style="{StaticResource KBOperator}" controls:Keyboard.Shortcut="Back" ContentTemplate="{StaticResource BackspaceIconTemplate}" Click="Delete_Click"/>
+        </Grid>
+    </Grid>
+</controls:BackdropWindow>

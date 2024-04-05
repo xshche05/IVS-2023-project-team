@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "IvsCalc (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "IvsCalc (Unpackaged)": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}
